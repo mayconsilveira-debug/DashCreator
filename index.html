@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity Templates - DashCreator</title>
+    
+    <!-- Bibliotecas para converter Markdown e Colorir Código -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <style>
+        /* Importando tipografia premium moderna */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono&display=swap');
+        
+        :root {
+            --bg-page: #0f0f1a;
+            --bg-surface: #1a1a2e;
+            --accent: #F5C518;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0b8;
+            --border: rgba(255,255,255,0.08);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.7;
+        }
+
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-page); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        #nav {
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 48px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        #nav h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: -0.5px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 64px auto;
+            padding: 56px;
+            background: var(--bg-surface);
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.6);
+            border: 1px solid var(--border);
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Personalizando os elementos Markdown na tela */
+        .markdown-body hr { margin: 40px 0; border: none; border-top: 1px solid var(--border); }
+        .markdown-body h1, .markdown-body h2 {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+            margin-top: 56px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .markdown-body h1:first-child { margin-top: 0; }
+        .markdown-body h1 { font-size: 36px; color: var(--accent); }
+        .markdown-body h2 { font-size: 26px; color: #fff; }
+        .markdown-body h3 { font-size: 20px; color: var(--text-primary); margin-top: 40px; }
+        
+        .markdown-body p, .markdown-body li { color: var(--text-secondary); font-size: 16px; }
+        .markdown-body li { margin-bottom: 8px; }
+
+        .markdown-body pre {
+            background: #0d0d14 !important;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            margin: 24px 0;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .markdown-body code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+        
+        /* Código inline */
+        .markdown-body p code, .markdown-body li code {
+            background: rgba(245, 197, 24, 0.1);
+            color: var(--accent);
+            padding: 3px 6px;
+            border-radius: 6px;
+            border: 1px solid rgba(245, 197, 24, 0.2);
+        }
+
+        #loading {
+            text-align: center;
+            padding: 100px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 18px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav">
+        <h1>DashCreator</h1>
+        <span style="color: var(--text-secondary); font-weight: 600;">| System Schemas & Templates</span>
+    </div>
+
+    <div class="container">
+        <div id="content" class="markdown-body">
+            <div id="loading">⏳ Transformando Markdown em site...</div>
+        </div>
+    </div>
+
+    <script>
+        // Configura o syntax highlighting para os blocos de código
+        marked.setOptions({
+            highlight: function(code, lang) {
+                const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                return hljs.highlight(code, { language }).value;
+            }
+        });
+
+        // O NOME EXATO DO SEU ARQUIVO MARKDOWN NO GITHUB
+        const filename = 'prompt_antigravity_drops_e_templates.md';
+
+        // Puxa o arquivo, traduz o texto para HTML e injeta na tela
+        fetch(filename)
+            .then(response => {
+                if (!response.ok) throw new Error('Arquivo não encontrado!');
+                return response.text();
+            })
+            .then(text => {
+                document.getElementById('content').innerHTML = marked.parse(text);
+            })
+            .catch(err => {
+                document.getElementById('content').innerHTML = `
+                    <div style="text-align:center; padding: 50px;">
+                        <h2 style="color: #ff4a4a;">Erro: Arquivo não encontrado! ⚠️</h2>
+                        <p>O arquivo <strong>${filename}</strong> não pôde ser carregado.</p>
+                        <p>Certifique-se de que os dois arquivos (<code>index.html</code> e <code>${filename}</code>) estão lado a lado no seu repositório Github.</p>
+                    </div>
+                `;
+            });
+    </script>
+</body>
+</html>
